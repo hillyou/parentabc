@@ -1,0 +1,7 @@
+<xml>
+    <ToUserName>aaa</ToUserName>
+    <FromUserName>bbb</FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType>event</MsgType>
+    <Event>subscribe</Event>
+</xml>

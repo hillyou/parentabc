@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs-client"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+          http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+          http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd
+">
+
+    <!-- Import CXF -->
+    <!--    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />-->
+
+    <!-- common beans for cxf web service -->
+    <import resource="classpath:spring/spring-cxf-common.xml" />
+
+
+    <!--done-->
+    <!--    <bean id="webClientRS" class="org.apache.cxf.jaxrs.client.WebClient" factory-method="create">
+        <constructor-arg type="java.lang.String" value="${webservice.address}" />
+        <constructor-arg ref="wsMessageProviders"/>
+    </bean>-->
+
+    <!--    <bean id="clientFactoryRS" class="org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean">
+        <property name="serviceClass" value="com.study.webservice.CityService"/>
+        <property name="address" value="${webservice.address}/ws"/>
+    </bean>-->
+
+    <!--<bean id="cityClientRSFac" class="com.study.webservice.CityService" factory-bean="clientFactoryRS" factory-method="create"/>-->
+
+
+    <jaxrs:client  name="accessTokenService" address="${wechat_accessapi_address}" serviceClass="com.wechatkit.base.service.AccessTokenService">
+        <jaxrs:headers>
+            <entry key="Accept" value="application/json"></entry>
+            <entry key="Content-Type" value="application/json"></entry>
+        </jaxrs:headers>
+        <jaxrs:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </jaxrs:inInterceptors>
+        <jaxrs:outInterceptors>
+            <ref bean="logOutInterceptor"/>
+        </jaxrs:outInterceptors>
+        <jaxrs:providers>
+            <ref bean="jacksonJsonProvider"/>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:client>
+
+    <jaxrs:client  name="weChatUserService" address="${wechat_accessapi_address}" serviceClass="com.wechatkit.user.service.WeChatUserService">
+        <jaxrs:headers>
+            <entry key="Accept" value="application/json"></entry>
+            <entry key="Content-Type" value="application/json"></entry>
+        </jaxrs:headers>
+        <jaxrs:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </jaxrs:inInterceptors>
+        <jaxrs:outInterceptors>
+            <ref bean="logOutInterceptor"/>
+        </jaxrs:outInterceptors>
+        <jaxrs:providers>
+            <ref bean="jacksonJsonProvider"/>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:client>
+
+    <jaxrs:client  name="weChatMenuService" address="${wechat_accessapi_address}" serviceClass="com.wechatkit.menu.service.MenuService">
+        <jaxrs:headers>
+            <entry key="Accept" value="application/json"></entry>
+            <entry key="Content-Type" value="application/json"></entry>
+        </jaxrs:headers>
+        <jaxrs:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </jaxrs:inInterceptors>
+        <jaxrs:outInterceptors>
+            <ref bean="logOutInterceptor"/>
+        </jaxrs:outInterceptors>
+        <jaxrs:providers>
+            <ref bean="jacksonJsonProvider"/>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:client>
+
+</beans>

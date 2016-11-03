@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 19, 2016 1:56:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.parentabc.entity.MemberUser" schema="PARENTABC" table="MEMBERUSER">
+    <id name="id" type="int">
+      <column name="ID"/>
+      <generator class="assigned"/>
+    </id>
+    <version name="version" type="int">
+      <column name="VERSION" not-null="true"/>
+    </version>
+    <property name="username" type="string">
+      <column length="50" name="USERNAME"/>
+    </property>
+    <property name="passwd" type="string">
+      <column length="200" name="PASSWD"/>
+    </property>
+    <property name="wecahtUid" type="string">
+      <column length="100" name="WECAHT_UID"/>
+    </property>
+    <property name="wechatOid" type="string">
+      <column length="100" name="WECHAT_OID"/>
+    </property>
+    <property name="createDate" type="timestamp">
+      <column length="29" name="CREATE_DATE"/>
+    </property>
+    <property name="updateDate" type="date">
+      <column length="10" name="UPDATE_DATE"/>
+    </property>
+    <property name="points" type="java.lang.Integer">
+      <column name="POINTS"/>
+    </property>
+    <property name="mobile" type="string">
+      <column length="50" name="MOBILE"/>
+    </property>
+    <property name="address" type="string">
+      <column length="200" name="ADDRESS"/>
+    </property>
+    <property name="status" type="java.lang.Integer">
+      <column name="STATUS"/>
+    </property>
+    <property name="email" type="string">
+      <column length="100" name="EMAIL"/>
+    </property>
+    <property name="weUsername" type="string">
+      <column length="100" name="WE_USERNAME"/>
+    </property>
+  </class>
+</hibernate-mapping>

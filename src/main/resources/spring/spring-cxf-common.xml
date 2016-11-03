@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+">
+
+    <bean id="depthProperties" class="org.apache.cxf.staxutils.DocumentDepthProperties">
+        <property name="innerElementCountThreshold" value="500"/>
+    </bean>
+
+    <bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+        <property name="depthProperties" ref="depthProperties"/>
+    </bean>
+
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        <property name="depthProperties" ref="depthProperties"/>
+    </bean>
+
+    <bean id="jacksonJsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+
+    <util:list id="wsMessageProviders">
+        <ref bean="jacksonJsonProvider"/>
+        <ref bean="jsonProvider"/>
+    </util:list>
+
+
+    <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+    <bean id="logOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+
+    <bean id="soap12FaultInInterceptor" class="org.apache.cxf.binding.soap.interceptor.Soap12FaultInInterceptor"></bean>
+    <bean id="soap12FaultOutInterceptor" class="org.apache.cxf.binding.soap.interceptor.Soap12FaultOutInterceptor"></bean>
+
+    <bean id="cryptoCoverageChecker" class="org.apache.cxf.ws.security.wss4j.DefaultCryptoCoverageChecker"/>
+
+<!--    <bean id="headerInterceptor" class="com.study.cxf.common.HeaderInterceptor"></bean>
+
+    <bean id="cxf" class="org.apache.cxf.bus.spring.SpringBus">
+        <property name="outInterceptors">
+            <list>
+                <ref bean="headerInterceptor"/>
+            </list>
+        </property>
+    </bean>-->
+
+</beans>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 19, 2016 1:56:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.parentabc.entity.Answers" table="ANSWERS" schema="PARENTABC">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="int">
+            <column name="VERSION" not-null="true" />
+        </version>
+        <property name="acontent" type="string">
+            <column name="ACONTENT" length="1000" />
+        </property>
+        <property name="creatorId" type="java.lang.Integer">
+            <column name="CREATOR_ID" />
+        </property>
+        <property name="QId" type="java.lang.Integer">
+            <column name="Q_ID" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="CREATE_DATE" length="29" />
+        </property>
+        <property name="updateDate" type="timestamp">
+            <column name="UPDATE_DATE" length="29" />
+        </property>
+        <property name="best" type="java.lang.Boolean">
+            <column name="BEST" />
+        </property>
+        <property name="points" type="java.lang.Integer">
+            <column name="POINTS" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="STATUS" />
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="TYPE" />
+        </property>
+    </class>
+</hibernate-mapping>

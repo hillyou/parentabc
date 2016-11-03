@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.parentabc.dao.AnswerDao">
+    <!--    <cache type="org.mybatis.caches.ehcache.EhcacheCache">-->
+    <!--        <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>-->
+    <!--</cache>-->
+    <!--    <select id="getAll" resultType="City" useCache="true">
+        select CITY_ID cityId,CITY_NAME cityName,COUNTRY country,AIRPORT airport,LANGUAGE language,COUNTRY_ISO_CODE countryISOCode from Cities
+    </select>-->
+
+    <!--    <select id="getById" resultType="City" parameterType="int" useCache="true">
+        select CITY_ID cityId,CITY_NAME cityName,COUNTRY country,AIRPORT airport,LANGUAGE language,COUNTRY_ISO_CODE countryISOCode from Cities where CITY_ID=#{id}
+    </select>-->
+
+    <insert id="saveAnswer" parameterType="Answer" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        insert into ANSWERS (ACONTENT, CREATORID, Q_ID, CREATE_DATE,UPDATE_DATE,TYPE) values(
+        #{acontent,javaType=String,jdbcType=VARCHAR},
+        #{creatorId,javaType=int,jdbcType=INTEGER},
+        #{QId,javaType=int,jdbcType=INTEGER},
+        #{createDate,javaType=java.util.Date,jdbcType=TIMESTAMP},
+        #{updateDate,javaType=java.util.Date,jdbcType=TIMESTAMP},
+        #{type,javaType=int,jdbcType=INTEGER}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+            <!--            values IDENTITY_VAL_LOCAL()-->
+        </selectKey>
+    </insert>
+
+    <!--    <delete id="delete" parameterType="City" flushCache="true">
+        delete from APP.CITIES where city_id=#{cityId}
+    </delete>-->
+
+    <update id="updateAnswer" parameterType="Answer">
+        update ANSWERS set
+        UPDATE_DATE=#{updateDate},
+        <if test="points &gt; 0 ">
+            POINTS=#{points},
+        </if>
+        <if test="status!=null">
+            STATUS=#{status},
+        </if>
+        BEST=#{best}
+        where id=#{id}
+    </update>
+
+</mapper>
