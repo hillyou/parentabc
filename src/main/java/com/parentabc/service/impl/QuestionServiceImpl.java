@@ -10,6 +10,7 @@ import com.parentabc.dto.BasePageQueryReq;
 import com.parentabc.dto.BasePaginationResult;
 import com.parentabc.entity.Question;
 import com.parentabc.service.IQuestionService;
+import com.parentabc.util.DateUtils;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -43,7 +44,9 @@ public class QuestionServiceImpl extends AbstractPageService implements IQuestio
     }
 
     public Question getQuesDetail(int qId) {
-        return questionDao.getQuesDetail(qId);
+        Question ques = questionDao.getQuesDetail(qId);
+        ques.setAnswersSize(ques.getAnswers() != null ? ques.getAnswers().size() : 0);
+        return ques;
     }
 
     public Question getQuesSimple(int qId) {
@@ -54,4 +57,17 @@ public class QuestionServiceImpl extends AbstractPageService implements IQuestio
         questionDao.updateQueston(question);
     }
 
+    /**
+     * *
+     * 获取问题总数及今天新增数量
+     *
+     * @return
+     */
+    public BasePaginationResult<Question> getIncreamUsers() {
+        BasePageQueryReq req = new BasePageQueryReq();
+        Date beginDate = DateUtils.getDateWithoutTime(new Date());
+        req.setBeginDate(beginDate);
+        req.setPageSize(Integer.MAX_VALUE);
+        return getQuestions(req);
+    }
 }

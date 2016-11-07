@@ -29,6 +29,10 @@ public class Question implements java.io.Serializable {
     private int type = 1;// 1:普通问题, 2:向管理者提的问题,
     private int status = 1; //1:已发布的问题, 2:禁止发布问题 ,7:草稿问题, 9:已删除问题
     private int views;
+    private int nickname;
+    private int age;
+    private String sex; //0:女 1:男
+    private int answersSize;
     private List<Answer> answers;
 
     public Question() {
@@ -48,8 +52,40 @@ public class Question implements java.io.Serializable {
         this.id = id;
     }
 
+    public int getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(int nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public String getQtitle() {
         return qtitle;
+    }
+
+    public int getAnswersSize() {
+        return answersSize;
+    }
+
+    public void setAnswersSize(int answersSize) {
+        this.answersSize = answersSize;
     }
 
     public void setQtitle(String qtitle) {

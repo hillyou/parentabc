@@ -10,6 +10,8 @@ import com.parentabc.dto.BasePageQueryReq;
 import com.parentabc.dto.BasePaginationResult;
 import com.parentabc.entity.MemberUser;
 import com.parentabc.service.IUserService;
+import com.parentabc.util.DateUtils;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,4 +48,17 @@ public class UserServiceImpl extends AbstractPageService implements IUserService
         return memberDao.getUserByOpenId(openid);
     }
 
+    /**
+     * *
+     * 获取用户数量总量及今天新增数量
+     *
+     * @return
+     */
+    public BasePaginationResult<MemberUser> getIncreamUsers() {
+        BasePageQueryReq req = new BasePageQueryReq();
+        Date beginDate = DateUtils.getDateWithoutTime(new Date());
+        req.setBeginDate(beginDate);
+        req.setPageSize(Integer.MAX_VALUE);
+        return getUsersByPage(req);
+    }
 }

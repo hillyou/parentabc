@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.parentabc.dao.ViewsDao">
+    <!--    <cache type="org.mybatis.caches.ehcache.EhcacheCache">-->
+    <!--        <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>-->
+    <!--</cache>-->
+    <!--    <select id="getAll" resultType="City" useCache="true">
+        select CITY_ID cityId,CITY_NAME cityName,COUNTRY country,AIRPORT airport,LANGUAGE language,COUNTRY_ISO_CODE countryISOCode from Cities
+    </select>-->
+
+    <select id="getViewsByViewerIdOrIp" resultType="Views" useCache="true">
+        select * from Views v
+        <where>
+            1=1
+            <if test="viewerId &gt; 0">
+                and v.VIEWER_ID = #{viewerId}
+            </if>
+            <if test="ip!=null and ip !='' ">
+                and v.VIEWER_IP &gt;= #{ip}
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveViews" parameterType="Views" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        insert into Views (QUES_ID, VIEWER_ID, TIMES,VIEWER_IP, CREATE_DATE,UPDATE_DATE) values(
+        #{quesId,javaType=int,jdbcType=INTEGER},
+        #{viewerId,javaType=int,jdbcType=INTEGER},
+        #{times,javaType=int,jdbcType=INTEGER},
+        #{viewerIp,javaType=String,jdbcType=VARCHAR},
+        #{createDate,javaType=java.util.Date,jdbcType=TIMESTAMP},
+        #{updateDate,javaType=java.util.Date,jdbcType=TIMESTAMP}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+            <!--            values IDENTITY_VAL_LOCAL()-->
+        </selectKey>
+    </insert>
+
+    <!--    <delete id="delete" parameterType="City" flushCache="true">
+        delete from APP.CITIES where city_id=#{cityId}
+    </delete>-->
+
+    <update id="updateViews" parameterType="Views">
+        update Views set
+        UPDATE_DATE=#{updateDate},
+        <if test="times &gt; 0 ">
+            TIMES=#{times},
+        </if>
+        where id=#{id}
+    </update>
+
+</mapper>

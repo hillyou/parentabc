@@ -24,6 +24,7 @@
         <result column="Q_STATUS" property="status" />
         <result column="Q_VERSION" property="version" />
         <result column="Q_VIEWS" property="views" />
+        <result column="Q_ANSWERSSIZE" property="answersSize" />
         <association property="answers" resultMap="answer"></association>
         <association property="memberUser" resultMap="user"></association>
     </resultMap>
@@ -68,6 +69,7 @@
     </resultMap>
 
 
+
     <select id="getQuestions" parameterType="com.parentabc.dto.BasePageQueryReq" useCache="true" resultMap="question">
         select
         q.ID Q_ID,
@@ -80,7 +82,8 @@
         q.TYPE Q_TYPE,
         q.STATUS Q_STATUS,
         q.VERSION Q_VERSION,
-        q.VIEWS Q_VIEWS,
+        v.COUNTS Q_VIEWS,
+        av.COUNTS Q_ANSWERSSIZE,
 
         u.ID U_ID,
         u.USERNAME U_USERNAME,
@@ -107,6 +110,10 @@
         from QUESTIONS q
         left join MEMBERUSER u
         on q.CREATORID=u.id
+        left join VIEWS_COUNT_VIEW v
+        on q.id=v.ques_id
+        left join ANSWERS_COUNT_VIEW av
+        on q.id=av.ques_id
         <where>
             1=1
             <if test="statusList!=null and statusList.size>0">
@@ -152,7 +159,7 @@
         q.TYPE Q_TYPE,
         q.STATUS Q_STATUS,
         q.VERSION Q_VERSION,
-        q.VIEWS Q_VIEWS,
+        v.COUNTS Q_VIEWS,
 
         a.ID A_ID,
         a.ACONTENT A_ACONTENT,
@@ -191,8 +198,11 @@
         on q.ID=a.QID
         left join MEMBERUSER u
         on q.CREATORID=u.id
+        left join VIEWS_COUNT_VIEW v
+        on q.id=v.ques_id
         where q.ID=#{id}
     </select>
+
 
     <insert id="saveQuestion" parameterType="Question" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
         insert into QUESTIONS (QTITLE, QCONTENT, CREATE_DATE,UPDATE_DATE, CREATORID, TYPE, STATUS) values(
