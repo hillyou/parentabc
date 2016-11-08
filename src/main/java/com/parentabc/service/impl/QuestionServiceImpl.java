@@ -43,6 +43,12 @@ public class QuestionServiceImpl extends AbstractPageService implements IQuestio
         return super.postQuery(refundList);
     }
 
+    public BasePaginationResult<Question> getUnansweredQues(BasePageQueryReq pageQueryReq) {
+        super.beforeQuery(pageQueryReq);
+        List<Question> refundList = questionDao.getUnansweredQues(pageQueryReq);
+        return super.postQuery(refundList);
+    }
+
     public Question getQuesDetail(int qId) {
         Question ques = questionDao.getQuesDetail(qId);
         ques.setAnswersSize(ques.getAnswers() != null ? ques.getAnswers().size() : 0);

@@ -21,6 +21,8 @@ public interface QuestionDao {
 
     List<Question> getQuestions(BasePageQueryReq pageQueryReq);
 
+    List<Question> getUnansweredQues(BasePageQueryReq pageQueryReq);
+
     void saveQuestion(Question question);
 
     void updateQueston(Question question);

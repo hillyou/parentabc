@@ -19,6 +19,8 @@ public interface IQuestionService {
 
     BasePaginationResult<Question> getQuestions(BasePageQueryReq pageQueryReq);
 
+    BasePaginationResult<Question> getUnansweredQues(BasePageQueryReq pageQueryReq);
+
     public Question getQuesDetail(int qId);
 
     public Question getQuesSimple(int qId);

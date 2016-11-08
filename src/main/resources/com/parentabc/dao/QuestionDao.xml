@@ -137,9 +137,85 @@
             <if test="updateEnd!=null">
                 and q.UPDAT_DATE &lt; #{updateEnd}
             </if>
+            and q.STATUS != 9
         </where>
-        order by q.POINTS DESC, q.CREATE_DATE DESC
+        order by q.CREATE_DATE DESC
     </select>
+
+
+    <select id="getUnansweredQues" parameterType="com.parentabc.dto.BasePageQueryReq" useCache="true" resultMap="question">
+        select
+        q.ID Q_ID,
+        q.QTITLE Q_QTITLE,
+        q.QCONTENT Q_QCONTENT,
+        q.CREATE_DATE Q_CREATE_DATE,
+        q.CREATORID Q_CREATOR_ID,
+        q.UPDATE_DATE Q_UPDATE_DATE,
+        q.POINTS Q_POINTS,
+        q.TYPE Q_TYPE,
+        q.STATUS Q_STATUS,
+        q.VERSION Q_VERSION,
+        v.COUNTS Q_VIEWS,
+        av.COUNTS Q_ANSWERSSIZE,
+
+        u.ID U_ID,
+        u.USERNAME U_USERNAME,
+        u.CREATE_DATE U_CREATE_DATE,
+        u.UPDATE_DATE U_UPDATE_DATE,
+        u.POINTS U_POINTS,
+        u.PASSWD U_PASSWD,
+        u.MOBILE U_MOBILE,
+        u.ADDRESS U_ADDRESS,
+        u.STATUS U_STATUS,
+        u.VERSION U_VERSION,
+        u.EMAIL U_EMAIL,
+        u.UNIONID U_UNIONID,
+        u.OPENID U_OPENID,
+        u.SEX U_SEX,
+        u.LANG U_LANGUAGE,
+        u.CITY U_CITY,
+        u.PROVINCE U_PROVINCE,
+        u.COUNTRY U_COUNTRY,
+        u.NICKNAME U_NICKNAME,
+        u.HEADIMGURL U_HEADIMGURL,
+        u.SUBSCRIBE U_SUBSCRIBE
+
+        from QUESTIONS q
+        left join MEMBERUSER u
+        on q.CREATORID=u.id
+        left join VIEWS_COUNT_VIEW v
+        on q.id=v.ques_id
+        left join ANSWERS_COUNT_VIEW av
+        on q.id=av.ques_id
+        <where>
+            1=1
+            <if test="statusList!=null and statusList.size>0">
+                and q.STATUS in
+                <foreach collection="statusList" item="status" open="(" close=")" separator="">
+                    #{status}
+                </foreach>
+            </if>
+            <if test="type &gt; 0">
+                and q.TYPE = #{type}
+            </if>
+            <if test="beginDate!=null">
+                and q.CREAT_DATE &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and q.CREAT_DATE &lt; #{endDate}
+            </if>
+            <if test="updateBegin!=null">
+                and q.UPDAT_DATE &gt;= #{updateBegin}
+            </if>
+            <if test="updateEnd!=null">
+                and q.UPDAT_DATE &lt; #{updateEnd}
+            </if>
+            and q.STATUS != 9
+            and q.id not in (select a.Q_ID from answers a)
+        </where>
+        order by q.CREATE_DATE DESC
+    </select>
+
 
     <select id="getQuesSimple" resultType="Question" parameterType="int" useCache="true">
         select *
@@ -237,7 +313,7 @@
             STATUS=#{status},
         </if>
         VERSION=#{version} + 1
-        where id=#{id} and version=#{version}
+        where id=#{id}
     </update>
 
 </mapper>

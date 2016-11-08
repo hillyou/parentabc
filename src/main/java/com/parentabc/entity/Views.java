@@ -6,6 +6,7 @@
 package com.parentabc.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -20,6 +21,8 @@ public class Views implements Serializable {
     private int viewerId;
     private int times;
     private String viewerIp;
+    private Date createDate;
+    private Date updateDate;
 
     public int getId() {
         return id;
@@ -59,6 +62,22 @@ public class Views implements Serializable {
 
     public void setViewerIp(String viewerIp) {
         this.viewerIp = viewerIp;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
 }

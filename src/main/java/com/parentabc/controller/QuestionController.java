@@ -8,13 +8,16 @@ package com.parentabc.controller;
 import com.parentabc.dto.BasePageQueryReq;
 import com.parentabc.dto.BasePaginationResult;
 import com.parentabc.entity.Question;
+import com.parentabc.entity.Views;
 import com.parentabc.service.IQuestionService;
+import com.parentabc.service.IViewsService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +34,8 @@ public class QuestionController {
 
     @Autowired
     private IQuestionService questionService;
+    @Autowired
+    private IViewsService viewsService;
 
     @RequestMapping(value = "/gotoask", method = RequestMethod.GET)
     public ModelAndView gotoAskQuestion() {
@@ -55,11 +60,24 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView getQuesDetail(@PathVariable("id") int id) {
+    public ModelAndView getQuesDetail(@PathVariable("id") int id, @CookieValue("viewer") Integer viewId, HttpServletRequest request) {
         Question detail = questionService.getQuesDetail(id);
         ModelAndView modelAndView = new ModelAndView("quesdetail");
         modelAndView.addObject("data", detail);
+        //保存访问量
+        buildAndSaveViews(id, viewId, request);
         return modelAndView;
+    }
+
+    private void buildAndSaveViews(int id, Integer viewId, HttpServletRequest request) {
+        Views view = new Views();
+        view.setQuesId(id);
+        String viewerIp = getIpAddr(request);
+        view.setViewerIp(viewerIp);
+        if (viewId != null) {
+            view.setViewerId(viewId);
+        }
+        viewsService.saveViews(view);
     }
 
     /**

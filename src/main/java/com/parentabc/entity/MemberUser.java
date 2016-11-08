@@ -26,7 +26,7 @@ public class MemberUser implements java.io.Serializable {
     private String province;
     private String country;
     private String address;
-    private int status;
+    private int status = 1; // 1:有效 9:禁止回答问题
     private String email;
     private String nickname;
     private String headimgurl;
