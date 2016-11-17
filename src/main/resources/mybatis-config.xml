@@ -16,6 +16,7 @@
         <typeAlias alias="MemberUser" type="com.parentabc.entity.MemberUser"></typeAlias>
         <typeAlias alias="Question" type="com.parentabc.entity.Question"></typeAlias>
         <typeAlias alias="Answer" type="com.parentabc.entity.Answer"></typeAlias>
+        <typeAlias alias="Views" type="com.parentabc.entity.Views"></typeAlias>
     </typeAliases>
 
     <!--    <environments default="dev">
