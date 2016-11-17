@@ -16,6 +16,7 @@ public class BasePageQueryReq extends BasePaginationReq {
 
     private static final long serialVersionUID = 6211309387183737611L;
     private List<Integer> statusList;
+    private String nickname;
     private int type;
     private Date beginDate;
     private Date endDate;
@@ -68,6 +69,14 @@ public class BasePageQueryReq extends BasePaginationReq {
 
     public void setUpdateEnd(Date updateEnd) {
         this.updateEnd = updateEnd;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
 }

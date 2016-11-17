@@ -13,6 +13,8 @@ import com.parentabc.entity.Answer;
  */
 public interface AnswerDao {
 
+    Answer getBestAnser(Answer answer);
+
     void saveAnswer(Answer answer);
 
     void updateAnswer(Answer answer);

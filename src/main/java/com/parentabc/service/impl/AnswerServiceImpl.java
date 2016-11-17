@@ -71,11 +71,23 @@ public class AnswerServiceImpl implements IAnswerService {
     /**
      * 解答被选为最佳解答
      *
+     * @param selectorId 选择人ID
      * @param answer
      */
-    public void selectAsBestAns(Answer answer) {
-        answer.setBest(true);
-        addPoints4Anser1(answer, bestPoints);
+    public void selectAsBestAns(int selectorId, Answer answer) {
+        int quesId = answer.getQId();
+        Question question = questionService.getQuesSimple(quesId);
+        if (question == null) {
+            return;
+        }
+        int questCreatorId = question.getCreatorId();
+        if (selectorId > 0 && selectorId != questCreatorId) {
+            return;
+        }
+
+        if (!hasBestAnswer(answer)) {
+            addPoints4Anser1(answer, bestPoints);
+        }
     }
 
     private void addPoints4Anser1(Answer answer, int points) {
@@ -83,5 +95,12 @@ public class AnswerServiceImpl implements IAnswerService {
         MemberUser memberUser = userService.getById(userId);
         int oldPoints = memberUser.getPoints();
         memberUser.setPoints(oldPoints + points);
+    }
+
+    @Override
+    public boolean hasBestAnswer(Answer answer) {
+        answer.setBest(true);
+        Answer bestAnswer = answerDao.getBestAnser(answer);
+        return bestAnswer != null;
     }
 }

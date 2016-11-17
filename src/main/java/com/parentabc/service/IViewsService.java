@@ -5,19 +5,14 @@
  */
 package com.parentabc.service;
 
-import com.parentabc.entity.Answer;
+import com.parentabc.entity.Views;
 
 /**
  *
  * @author youguilin
  */
-public interface IAnswerService {
+public interface IViewsService {
 
-    void selectAsBestAns(int selectorId, Answer answer);
+    void saveViews(Views view);
 
-    boolean hasBestAnswer(Answer answer);
-
-    void answerQues(Answer answer);
-
-    void updateAnswer(Answer answer);
 }

@@ -22,9 +22,10 @@
             <if test="viewerId &gt; 0">
                 and v.VIEWER_ID = #{viewerId}
             </if>
-            <if test="ip!=null and ip !='' ">
-                and v.VIEWER_IP &gt;= #{ip}
+            <if test="viewerIp!=null and viewerIp !='' ">
+                and v.VIEWER_IP &gt;= #{viewerIp}
             </if>
+            and v.QUES_ID=#{quesId}
         </where>
     </select>
 

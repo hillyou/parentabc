@@ -34,6 +34,9 @@
             <if test="updateEnd!=null">
                 and u.UPDAT_DATE &lt; #{updateEnd}
             </if>
+            <if test="nickname!=null and nickname !=''">
+                and u.NICKNAME like '%' || #{nickname} || '%'
+            </if>
             and u.SUBSCRIBE = 1
         </where>
         order by u.POINTS DESC, u.CREATE_DATE DESC
@@ -99,7 +102,7 @@
         <if test="address!=null and address!=''">
             ADDRESS=#{address},
         </if>
-        <if test="status != -1">
+        <if test="status &gt; 0">
             STATUS=#{status},
         </if>
         <if test="email!=null and email!=''">

@@ -6,7 +6,6 @@
 package com.parentabc.dao;
 
 import com.parentabc.entity.Views;
-import org.apache.ibatis.annotations.Param;
 
 /**
  *
@@ -18,5 +17,5 @@ public interface ViewsDao {
 
     void updateViews(Views views);
 
-    Views getViewsByViewerIdOrIp(@Param("viewerId") int viewerId, @Param("ip") String ip);
+    Views getViewsByViewerIdOrIp(Views views);
 }
