@@ -22,4 +22,6 @@ public interface IUserService {
     BasePaginationResult<MemberUser> getUsersByPage(BasePageQueryReq pageQueryReq);
 
     void updateUser(MemberUser user);
+
+    BasePaginationResult<MemberUser> getIncreamUsers();
 }

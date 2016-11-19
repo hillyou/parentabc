@@ -129,16 +129,16 @@
                 and q.TYPE = #{type}
             </if>
             <if test="beginDate!=null">
-                and q.CREAT_DATE &gt;= #{beginDate}
+                and q.CREATE_DATE &gt;= #{beginDate}
             </if>
             <if test="endDate!=null">
-                and q.CREAT_DATE &lt; #{endDate}
+                and q.CREATE_DATE &lt; #{endDate}
             </if>
             <if test="updateBegin!=null">
-                and q.UPDAT_DATE &gt;= #{updateBegin}
+                and q.UPDATE_DATE &gt;= #{updateBegin}
             </if>
             <if test="updateEnd!=null">
-                and q.UPDAT_DATE &lt; #{updateEnd}
+                and q.UPDATE_DATE &lt; #{updateEnd}
             </if>
             <if test="byName!=null and byName!=''">
                 and
@@ -218,16 +218,16 @@
                 and q.TYPE = #{type}
             </if>
             <if test="beginDate!=null">
-                and q.CREAT_DATE &gt;= #{beginDate}
+                and q.CREATE_DATE &gt;= #{beginDate}
             </if>
             <if test="endDate!=null">
-                and q.CREAT_DATE &lt; #{endDate}
+                and q.CREATE_DATE &lt; #{endDate}
             </if>
             <if test="updateBegin!=null">
-                and q.UPDAT_DATE &gt;= #{updateBegin}
+                and q.UPDATE_DATE &gt;= #{updateBegin}
             </if>
             <if test="updateEnd!=null">
-                and q.UPDAT_DATE &lt; #{updateEnd}
+                and q.UPDATE_DATE &lt; #{updateEnd}
             </if>
             and q.STATUS != 9
             and q.id not in (select a.Q_ID from answers a)
@@ -300,14 +300,17 @@
 
 
     <insert id="saveQuestion" parameterType="Question" useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
-        insert into QUESTIONS (QTITLE, QCONTENT, CREATE_DATE,UPDATE_DATE, CREATORID, TYPE, STATUS) values(
+        insert into QUESTIONS (QTITLE, QCONTENT, CREATE_DATE,UPDATE_DATE, CREATORID, TYPE, STATUS,NICKNAME,AGE,SEX) values(
         #{qtitle,javaType=String,jdbcType=VARCHAR},
         #{qcontent,javaType=String,jdbcType=VARCHAR},
         #{createDate,javaType=java.util.Date,jdbcType=TIMESTAMP},
         #{updateDate,javaType=java.util.Date,jdbcType=TIMESTAMP},
         #{creatorId,javaType=int,jdbcType=INTEGER},
         #{type,javaType=int,jdbcType=INTEGER},
-        #{status,javaType=int,jdbcType=INTEGER}
+        #{status,javaType=int,jdbcType=INTEGER},
+        #{nickname,javaType=String,jdbcType=VARCHAR},
+        #{age,javaType=int,jdbcType=INTEGER},
+        #{sex,javaType=String,jdbcType=VARCHAR}
         )
         <selectKey resultType="int" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()

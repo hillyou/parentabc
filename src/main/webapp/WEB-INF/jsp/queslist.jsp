@@ -1,9 +1,3 @@
-<%-- 
-    Document   : cities
-    Created on : Oct 23, 2014, 2:28:35 PM
-    Author     : Colin.You
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jspf/taglibs.jspf"%>
 <!DOCTYPE html>

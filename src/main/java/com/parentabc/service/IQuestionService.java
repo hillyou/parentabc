@@ -26,4 +26,6 @@ public interface IQuestionService {
     public Question getQuesSimple(int qId);
 
     public void updateQuestion(Question question);
+
+    BasePaginationResult<Question> getIncreamUsers();
 }

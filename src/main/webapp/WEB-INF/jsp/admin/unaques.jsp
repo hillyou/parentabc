@@ -51,20 +51,10 @@
     <body>
         <div class="container">
             <div class="panel-group" id="accordion" style="margin-bottom: 55px;margin-top: 55px;">
-                <div class="row"><label>用户注册数量:</label><a href="${ctx}/admin/users/total.xhtml">${users.totalCount}</a></div>
-                <div class="row"><label>用户新增数量:</label><a href="${ctx}/admin/users/new.xhtml">${newusers.totalCount}</a></div>
-                <div class="row"><label>问题数量:</label><a href="${ctx}/admin/questions/total.xhtml">${questions.totalCount}</a></div>
-                <div class="row"><label>今日新增问题数量:</label><a href="${ctx}/admin/questions/new.xhtml">${newquestions.totalCount}</a></div>
-                <!--<div class="row"><label>今日回答问题数量:</label><a href="${ctx}/admin/questions/answered.xhtml">${users.totalCount}</a></div>-->
-                <div class="row"><label>未回答问题数量:</label><a href="${ctx}/admin/questions/unanswered.xhtml">${unaquestions.totalCount}</a></div>
-                <div class="row"><a href="${ctx}/admin/users/rank.xhtml">用户排名</a></div>
-                <div class="row"><label>今日访问量:</label><a href="${ctx}/admin/views/today.xhtml">今日访问量</a></div>
-                <div class="row"><a href="${ctx}/admin/questions/unanswered.xhtml">未回答问题列表</a></div>
-                <div class="row"><a href="${ctx}/admin/questions/top.xhtml">历史点击最高问题列表</a></div>
-                <div class="row"><a href="${ctx}/admin/questions/todaytop.xhtml">今日点击最高问题列表</a></div>
+               <%@include file="/WEB-INF/jspf/admin/queslist.jspf"%>
             </div>
-            <div class="navbar-fixed-bottom" style="z-index: 999;background-color:white;width: 100%; border-top: solid 1px gainsboro;">
-            </div>
+<!--            <div class="navbar-fixed-bottom" style="z-index: 999;background-color:white;width: 100%; border-top: solid 1px gainsboro;">
+            </div>-->
 
         </div>
 

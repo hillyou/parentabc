@@ -46,7 +46,7 @@
                     <textarea rows="10" cols="60" name="qcontent" placeholder="问题详细描述"></textarea>
                 </div>
                 <div class="row">
-                    <input type="hidden" name="creatorId" value="${currentUser}">
+                    <input type="hidden" name="creatorId" value="${currentUserId}">
                     <input type="submit" value="提交">
                 </div>
             </div>

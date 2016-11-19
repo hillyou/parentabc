@@ -44,20 +44,20 @@ public class MenuManagerImplTest {
 
     @Before
     public void setUp() {
-        Menu menu = new Menu("click", "今日歌曲");
-        menu.setKey("V1001_TODAY_MUSIC");
-        menus.addMenu(menu);
+//        Menu menu = new Menu("click", "今日歌曲");
+//        menu.setKey("V1001_TODAY_MUSIC");
+//        menus.addMenu(menu);
         Menu menu1 = new Menu("菜单");
-        Menu submenu1 = new Menu("view", "搜索");
-        submenu1.setUrl("http://www.sessionfactory.com/");
+        Menu submenu1 = new Menu("view", "问题列表");
+        submenu1.setUrl("http://45.63.56.158/parentabc/questions.xhtml");
         menu1.addSubMenu(submenu1);
 
-        Menu submenu2 = new Menu("view", "视频");
-        submenu2.setUrl("http://www.sessionfactory.com/");
+        Menu submenu2 = new Menu("view", "求助");
+        submenu2.setUrl("http://45.63.56.158/parentabc/questions/ask.xhtml");
         menu1.addSubMenu(submenu2);
 
-        Menu submenu3 = new Menu("click", "赞一下我们");
-        submenu3.setKey("V1001_GOOD");
+        Menu submenu3 = new Menu("view", "问题查询");
+        submenu3.setUrl("http://45.63.56.158/parentabc/questions/query.xhtml");
         menu1.addSubMenu(submenu3);
 
         menus.addMenu(menu1);

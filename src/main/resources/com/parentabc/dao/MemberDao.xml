@@ -23,19 +23,19 @@
                 </foreach>
             </if>
             <if test="beginDate!=null">
-                and u.CREAT_DATE &gt;= #{beginDate}
+                and u.CREATE_DATE &gt;= #{beginDate}
             </if>
             <if test="endDate!=null">
-                and u.CREAT_DATE &lt; #{endDate}
+                and u.CREATE_DATE &lt; #{endDate}
             </if>
             <if test="updateBegin!=null">
-                and u.UPDAT_DATE &gt;= #{updateBegin}
+                and u.UPDATE_DATE &gt;= #{updateBegin}
             </if>
             <if test="updateEnd!=null">
-                and u.UPDAT_DATE &lt; #{updateEnd}
+                and u.UPDATE_DATE &lt; #{updateEnd}
             </if>
             <if test="nickname!=null and nickname !=''">
-                and u.NICKNAME like '%' || #{nickname} || '%'
+                and u.NICKNAME like "%"#{nickname}"%"
             </if>
             and u.SUBSCRIBE = 1
         </where>

@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <c:choose>
-                    <c:when test="${empty currentUser}">
+                    <c:when test="${empty currentUserId}">
                         你还没有登录, 不能解答问题.
                     </c:when>
                     <c:otherwise>

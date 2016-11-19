@@ -29,7 +29,7 @@ public class Question implements java.io.Serializable {
     private int type = 1;// 1:普通问题, 2:向管理者提的问题,
     private int status = 1; //1:已发布的问题, 2:禁止发布问题 ,7:草稿问题, 9:已删除问题
     private int views;
-    private int nickname;
+    private String nickname;
     private int age;
     private String sex; //0:女 1:男
     private int answersSize;
@@ -52,11 +52,11 @@ public class Question implements java.io.Serializable {
         this.id = id;
     }
 
-    public int getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(int nickname) {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 

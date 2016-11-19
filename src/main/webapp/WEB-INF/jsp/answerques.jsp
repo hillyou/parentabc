@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <input type="hidden" name="Qid" value="${question.id}">
-            <input type="hidden" name="creatorId" value="${currentUser}">
+            <input type="hidden" name="creatorId" value="${currentUserId}">
             <input type="submit" value="提交">
         </div>
     </div>

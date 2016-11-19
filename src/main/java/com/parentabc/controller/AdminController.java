@@ -5,10 +5,14 @@
  */
 package com.parentabc.controller;
 
+import com.parentabc.dto.BasePageQueryReq;
+import com.parentabc.dto.BasePaginationResult;
 import com.parentabc.entity.MemberUser;
 import com.parentabc.entity.Question;
 import com.parentabc.service.IQuestionService;
 import com.parentabc.service.IUserService;
+import com.parentabc.util.DateUtils;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +35,24 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView gotoAdmin() {
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("admin/index");
+        BasePageQueryReq pageQueryReq = new BasePageQueryReq();
+        BasePaginationResult<MemberUser> userList = userService.getUsersByPage(pageQueryReq);
+        modelAndView.addObject("users", userList);
+        BasePaginationResult<MemberUser> newUserList = userService.getIncreamUsers();
+        modelAndView.addObject("newusers", newUserList);
+        BasePaginationResult<Question> allQues = questionService.getQuestions(pageQueryReq);
+        modelAndView.addObject("questions", allQues);
+        BasePaginationResult<Question> newQues = questionService.getIncreamUsers();
+        modelAndView.addObject("newquestions", newQues);
+        Date beginDate = DateUtils.getDateWithoutTime(new Date());
+        pageQueryReq.setBeginDate(beginDate);
+        BasePaginationResult<Question> unaQues = questionService.getUnansweredQues(pageQueryReq);
+        modelAndView.addObject("unaquestions", unaQues);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/user/block/{userId}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/users/block/{userId}", method = RequestMethod.PATCH)
     public ModelAndView blockUser(@PathVariable("userId") int userId) {
         ModelAndView modelAndView = new ModelAndView("index");
         if (userId > 0) {
@@ -48,7 +65,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/question/block/{quesId}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/questions/block/{quesId}", method = RequestMethod.PATCH)
     public ModelAndView blockQues(@PathVariable("quesId") int quesId) {
         ModelAndView modelAndView = new ModelAndView("index");
         if (quesId > 0) {
@@ -58,6 +75,17 @@ public class AdminController {
                 questionService.updateQuestion(question);
             }
         }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/questions/unanswered", method = RequestMethod.GET)
+    public ModelAndView unaQues() {
+        ModelAndView modelAndView = new ModelAndView("admin/unaques");
+        BasePageQueryReq pageQueryReq = new BasePageQueryReq();
+        Date beginDate = DateUtils.getDateWithoutTime(new Date());
+        pageQueryReq.setBeginDate(beginDate);
+        BasePaginationResult<Question> unaQues = questionService.getUnansweredQues(pageQueryReq);
+        modelAndView.addObject("data", unaQues);
         return modelAndView;
     }
 

@@ -1,0 +1,7 @@
+<%@page pageEncoding="UTF-8" %>
+<c:forEach var="user" items="${data.data}">
+    <div>
+        <span><label>昵称:</label>aaaa</span>
+        <span><a href="">拉黑</a></span>
+    </div>
+</c:forEach>
