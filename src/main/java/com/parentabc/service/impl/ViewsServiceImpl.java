@@ -8,6 +8,9 @@ package com.parentabc.service.impl;
 import com.parentabc.dao.ViewsDao;
 import com.parentabc.entity.Views;
 import com.parentabc.service.IViewsService;
+import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ViewsServiceImpl implements IViewsService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ViewsServiceImpl.class);
+
     @Autowired
     private ViewsDao viewsDao;
 
@@ -26,13 +31,16 @@ public class ViewsServiceImpl implements IViewsService {
         try {
             Views oldView = getViewsByViewerIdOrIp(view);
             if (oldView == null) {
+                view.setCreateDate(new Date());
                 viewsDao.saveViews(view);
             } else {
+                view.setUpdateDate(new Date());
                 int oldTimes = oldView.getTimes();
                 oldView.setTimes(oldTimes + 1);
                 viewsDao.updateViews(oldView);
             }
         } catch (Exception ex) {
+            LOG.error("保存查看次数失败", ex);
             //ignore invalid view entity
         }
     }

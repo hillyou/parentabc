@@ -27,7 +27,20 @@
         <form action="${ctx}/questions/ask.xhtml" method="post">
             <div class="container">
                 <div class="row">
-                    <input type="text" name="qtitle" placeholder="问题标题">
+                    <label>问题标题:</label><input type="text" name="qtitle" placeholder="一句话描述你的问题">
+                </div>
+                <div class="row">
+                    <label>孩子昵称:</label><input type="text" name="nickname" placeholder="贝贝">
+                </div>
+                <div class="row">
+                    <label>年龄:</label><input type="text" name="age" placeholder="5">
+                </div>
+                <div class="row">
+                    <label>性别:</label>
+                    <select name="sex">
+                        <option value="1">男</option>
+                         <option value="0">女</option>
+                    </select>
                 </div>
                 <div class="row">
                     <textarea rows="10" cols="60" name="qcontent" placeholder="问题详细描述"></textarea>

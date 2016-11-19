@@ -11,9 +11,13 @@ import com.parentabc.entity.Question;
 import com.parentabc.entity.Views;
 import com.parentabc.service.IQuestionService;
 import com.parentabc.service.IViewsService;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -32,12 +36,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/questions")
 public class QuestionController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
     @Autowired
     private IQuestionService questionService;
     @Autowired
     private IViewsService viewsService;
 
-    @RequestMapping(value = "/gotoask", method = RequestMethod.GET)
+    @RequestMapping(value = "/ask", method = RequestMethod.GET)
     public ModelAndView gotoAskQuestion() {
         ModelAndView modelAndView = new ModelAndView("askques");
         return modelAndView;
@@ -46,13 +51,29 @@ public class QuestionController {
     @RequestMapping(value = "/ask", method = RequestMethod.POST)
     public ModelAndView askQuestion(@Valid @ModelAttribute("question") Question question, BindingResult result) {
         questionService.askQuestion(question);
-        ModelAndView modelAndView = new ModelAndView("message");
+        ModelAndView modelAndView = new ModelAndView("redirect:/message.xhtml");
         modelAndView.addObject("message", "提问成功");
         return modelAndView;
     }
 
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public ModelAndView gotoQueryQuestion() {
+        ModelAndView modelAndView = new ModelAndView("quesquery");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public ModelAndView submitQueryQuestion(BasePageQueryReq req) {
+        ModelAndView modelAndView = new ModelAndView("quesquery");
+        BasePaginationResult list = questionService.getQuestions(req);
+        modelAndView.addObject("data", list);
+        modelAndView.addObject("query", req);
+        return modelAndView;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getQuestions(BasePageQueryReq req) {
+    public ModelAndView getQuestions(BasePageQueryReq req, HttpServletResponse response) {
+        response.addCookie(new Cookie("viewer", "10001"));
         BasePaginationResult list = questionService.getQuestions(req);
         ModelAndView modelAndView = new ModelAndView("queslist");
         modelAndView.addObject("data", list);

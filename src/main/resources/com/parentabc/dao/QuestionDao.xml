@@ -82,6 +82,9 @@
         q.TYPE Q_TYPE,
         q.STATUS Q_STATUS,
         q.VERSION Q_VERSION,
+        q.NICKNAME Q_NICKNAME,
+        q.AGE Q_AGE,
+        q.SEX Q_SEX,
         v.COUNTS Q_VIEWS,
         av.COUNTS Q_ANSWERSSIZE,
 
@@ -136,6 +139,22 @@
             </if>
             <if test="updateEnd!=null">
                 and q.UPDAT_DATE &lt; #{updateEnd}
+            </if>
+            <if test="byName!=null and byName!=''">
+                and
+                (
+                q.NICKNAME like "%"#{byName}"%"
+                or
+                u.NICKNAME like "%"#{byName}"%"
+                )
+            </if>
+            <if test="byContent!=null and byContent!=''">
+                and
+                (
+                q.QTITLE like "%"#{byContent}"%"
+                or
+                q.QCONTENT like "%"#{byContent}"%"
+                )
             </if>
             and q.STATUS != 9
         </where>
@@ -271,7 +290,7 @@
         u.SUBSCRIBE U_SUBSCRIBE
 
         from QUESTIONS q left join ANSWERS a
-        on q.ID=a.QID
+        on q.ID=a.Q_ID
         left join MEMBERUSER u
         on q.CREATORID=u.id
         left join VIEWS_COUNT_VIEW v

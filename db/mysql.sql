@@ -1,3 +1,9 @@
+--show variables like 'character%'; 
+--##my sql shutdown
+--mysqladmin -u root -p shutdown 
+--## mess code fix
+-- character-set-server=utf8 in my.ini
+
 DROP TABLE IF EXISTS VIEWS;
 DROP TABLE IF EXISTS ANSWERS;
 DROP TABLE IF EXISTS QUESTIONS;

@@ -50,10 +50,10 @@
 
     <update id="updateViews" parameterType="Views">
         update Views set
-        UPDATE_DATE=#{updateDate},
         <if test="times &gt; 0 ">
             TIMES=#{times},
         </if>
+        UPDATE_DATE=#{updateDate}
         where id=#{id}
     </update>
 

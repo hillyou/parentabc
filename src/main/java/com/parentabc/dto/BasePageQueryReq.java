@@ -22,6 +22,32 @@ public class BasePageQueryReq extends BasePaginationReq {
     private Date endDate;
     private Date updateBegin;
     private Date updateEnd;
+    private String byContent;
+    private String byName;
+
+    public String getQueryName() {
+        return byName != null && !byName.isEmpty() ? "byName" : "byContent";
+    }
+
+    public String getQueryValue() {
+        return byName != null && !byName.isEmpty() ? byName : byContent;
+    }
+
+    public String getByContent() {
+        return byContent;
+    }
+
+    public void setByContent(String byContent) {
+        this.byContent = byContent;
+    }
+
+    public String getByName() {
+        return byName;
+    }
+
+    public void setByName(String byName) {
+        this.byName = byName;
+    }
 
     public List<Integer> getStatusList() {
         return statusList;

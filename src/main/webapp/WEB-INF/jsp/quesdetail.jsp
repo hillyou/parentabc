@@ -24,7 +24,7 @@
         <title>问题详情</title>
     </head>
     <body>
-        <c:set var="questions" value="${data}"></c:set>
+        <c:set var="question" value="${data}"></c:set>
             <div class="container">
                 <div class="row">
                     <span>${question.qtitle}</span>
