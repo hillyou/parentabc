@@ -1,8 +1,11 @@
-<%@page pageEncoding="UTF-8" %>
-<c:forEach var="question" items="${data.data}">
-    <c:set var="quser" value="${question.memberUser}"></c:set>
-    <div class="panel panel-default">
-        <a href="${ctx}/questions/${question.id}.xhtml">${question.qtitle}</a>
-        <span><a>置顶</a></span>
-    </div>
-</c:forEach>
+<%@page pageEncoding="UTF-8"%>
+<ul class="list-group">
+	<c:forEach var="question" items="${data.data}">
+		<c:set var="quser" value="${question.memberUser}"></c:set>
+
+		<li class="list-group-item"><a
+			href="${ctx}/questions/${question.id}.xhtml">${question.qtitle}&nbsp;</a><span
+			class="badge"><a href="#">置顶</a></span></li>
+	</c:forEach>
+
+</ul>
