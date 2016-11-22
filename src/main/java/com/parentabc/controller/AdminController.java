@@ -88,5 +88,19 @@ public class AdminController {
         modelAndView.addObject("data", unaQues);
         return modelAndView;
     }
-
+    
+    /**
+     * show user Point & rank
+     * @return
+     */
+    @RequestMapping(value = "/users/rank", method = RequestMethod.GET)
+    public ModelAndView userPoints() {
+        ModelAndView modelAndView = new ModelAndView("admin/useranklist");
+        BasePageQueryReq pageQueryReq = new BasePageQueryReq();
+        BasePaginationResult<MemberUser> userList = userService.getUsersByPage(pageQueryReq);
+        modelAndView.addObject("data", userList);
+        return modelAndView;
+    }
+    
+    
 }

@@ -38,13 +38,13 @@
 				font-size: 12px;
 			}
 		</style>
-			<title>管理员页面</title>
+		<title>管理员页面</title>
 	</head>
 
 	<body>
 		<div class="container">
 			<div class="panel-group" id="accordion" style="margin-bottom: 55px;margin-top: 55px;">
-				<%@include file="/WEB-INF/jspf/admin/queslist.jspf"%>
+				<%@include file="/WEB-INF/jspf/admin/userranklist.jspf"%>
 			</div>
 		</div>
 	</body>

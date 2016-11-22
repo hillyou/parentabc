@@ -77,7 +77,7 @@
 						</tr>
 						<tr style="text-align: center">
 							<td colspan="2">
-								<a href="${ctx}/admin/users/rank.xhtml">用户排名</a>
+								<a href="${ctx}/admin/users/rank.xhtml">用户星级排名</a>
 							</td>
 						</tr>
 						<tr style="text-align: center">
